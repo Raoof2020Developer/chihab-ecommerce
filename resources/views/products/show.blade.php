@@ -29,7 +29,7 @@
 
                 <ul class="nav-list">
                     <li class="nav-item">
-                        Menu
+                        القائمة الرئيسية
                     </li>
 
                     <li class="nav-item">
@@ -57,89 +57,93 @@
 
     <div class="product">
         <div class="container">
-            <h3 class="product-title">{{$product->name}}</h3>
-            <div class="product-price">
-                <span class="selling-price price">{{$product->price_of_selling}} د.ج</span>
-                <span class="discount-price price">{{$product->price_after_discount}} د.ج</span>
-            </div>
-            <div class="product-images">
-                <div class="main-img-wrapper">
-                    <img src="{{asset('storage/'.$product->img_one_path)}}" alt="" class="active-img {{$product->price_after_discount != null ? 'discount' : ''}}" lazy>
-                    <span class="discount-text">تخفيض!</span>
-                    <span class="zoom-icon">
-                    </span>
+            <div>
+                <h3 class="product-title">{{$product->name}}</h3>
+                <div class="product-price">
+                    <span class="selling-price price">{{$product->price_of_selling}} د.ج</span>
+                    <span class="discount-price price">{{$product->price_after_discount}} د.ج</span>
                 </div>
+                <div class="product-images">
+                    <div class="main-img-wrapper">
+                        <img src="{{asset('storage/'.$product->img_one_path)}}" alt="" class="active-img {{$product->price_after_discount != null ? 'discount' : ''}}" lazy>
+                        <span class="discount-text">تخفيض!</span>
+                        <span class="zoom-icon">
+                        </span>
+                    </div>
 
-                <div class="images-list">
-                    <img src="{{asset('storage/'.$product->img_one_path)}}" alt="" class="product-img active" >
-                    <img src="{{asset('storage/'.$product->img_two_path)}}" alt="" class="product-img">
-                    <img src="{{asset('storage/'.$product->img_three_path)}}" alt="" class="product-img">
-                    <img src="{{asset('storage/'.$product->img_four_path)}}" alt="" class="product-img">
+                    <div class="images-list">
+                        <img src="{{asset('storage/'.$product->img_one_path)}}" alt="" class="product-img active" >
+                        <img src="{{asset('storage/'.$product->img_two_path)}}" alt="" class="product-img">
+                        <img src="{{asset('storage/'.$product->img_three_path)}}" alt="" class="product-img">
+                        <img src="{{asset('storage/'.$product->img_four_path)}}" alt="" class="product-img">
+                    </div>
                 </div>
             </div>
 
-            <div class="order-card">
-                <h3 class="order-card-title">للطلب أدخـل معلوماتك</h3>
-
-                <form action="{{route('orders.store')}}" id="orderForm" method="POST">
-                    @csrf
-                    <input type="text" name="name_of_client" id="name_of_client" placeholder="Nom | الاسم 👨‍🦱">
-
-                    <input type="text" name="phone_number" id="phone_number" placeholder="Téléphone | الهاتف 📞">
-
-                    <select name="client_wilaya" id="client_wilaya">
-                        <option disabled selected>Wilaya | الولاية 📍</option>
-                    </select>
-                    <input type="text" name="client_baladiya" id="client_baladiya"  placeholder="Comune | البلدية📌"/>
-                    
-                    <div class="counter">
-                        <div class="minus">-</div>
-                        <div class="counter-value">1</div>
-                        <div class="plus">+</div>
+            <div>
+                <div class="order-card">
+                    <h3 class="order-card-title">للطلب أدخـل معلوماتك</h3>
+    
+                    <form action="{{route('orders.store')}}" id="orderForm" method="POST">
+                        @csrf
+                        <input type="text" name="name_of_client" id="name_of_client" placeholder="Nom | الاسم 👨‍🦱">
+    
+                        <input type="text" name="phone_number" id="phone_number" placeholder="Téléphone | الهاتف 📞">
+    
+                        <select name="client_wilaya" id="client_wilaya">
+                            <option disabled selected>Wilaya | الولاية 📍</option>
+                        </select>
+                        <input type="text" name="client_baladiya" id="client_baladiya"  placeholder="Comune | البلدية📌"/>
                         
-                        <input type="hidden" name="quantity_ordered" id="quantity_ordered" value="1">
+                        <div class="counter">
+                            <div class="minus">-</div>
+                            <div class="counter-value">1</div>
+                            <div class="plus">+</div>
+                            
+                            <input type="hidden" name="quantity_ordered" id="quantity_ordered" value="1">
+                        </div>
+                        <input type="hidden" name="product_id" id="product_id" value="{{$product->id}}">
+    
+                        <input type="hidden" name="delivery_price" id="delivery_price" value="800" >
+                        <div class="order-summary">
+                            <h3 class="order-summary-title">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                ملخص الطلـب
+                            </h3>
+                            <hr>
+    
+                            <ul class="order-summary-list">
+                                <li class="order-summary-item price-of-unit">
+                                    <span>سعر المنتج</span>
+                                    <span>{{$product->price_after_discount != null ? $product->price_after_discount : $product->price_of_selling }} د.ج</span>
+                                </li>
+    
+                                <li class="order-summary-item quantity">
+                                    <span>الكميـة</span>
+                                    <span>1</span>
+                                </li>
+    
+                                <li class="order-summary-item price-of-delivery">
+                                    <span>سعر التوصيـل</span>
+                                    <span>0 د.ج</span>
+                                </li>
+    
+                                <li class="order-summary-item total-price">
+                                    <span>السعر الإجمالي</span>
+                                    <span>{{$product->price_after_discount}} د.ج</span>
+                                </li>
+                            </ul>
+                        
+                            <button type="submit" class="order-summary-btn">Acheter | اشتري الآن 🛒</button>
+                        </div>
+                    </form>
+                </div>
+    
+                <div class="description">
+                    <h3>الوصف</h3>
+                    <div>
+                       {!! $product->description !!}
                     </div>
-                    <input type="hidden" name="product_id" id="product_id" value="{{$product->id}}">
-
-                    <input type="hidden" name="delivery_price" id="delivery_price" value="800" >
-                    <div class="order-summary">
-                        <h3 class="order-summary-title">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            ملخص الطلـب
-                        </h3>
-                        <hr>
-
-                        <ul class="order-summary-list">
-                            <li class="order-summary-item price-of-unit">
-                                <span>سعر المنتج</span>
-                                <span>{{$product->price_after_discount != null ? $product->price_after_discount : $product->price_of_selling }} د.ج</span>
-                            </li>
-
-                            <li class="order-summary-item quantity">
-                                <span>الكميـة</span>
-                                <span>1</span>
-                            </li>
-
-                            <li class="order-summary-item price-of-delivery">
-                                <span>سعر التوصيـل</span>
-                                <span>0 د.ج</span>
-                            </li>
-
-                            <li class="order-summary-item total-price">
-                                <span>السعر الإجمالي</span>
-                                <span>{{$product->price_after_discount}} د.ج</span>
-                            </li>
-                        </ul>
-                    
-                        <button type="submit" class="order-summary-btn">Acheter | اشتري الآن 🛒</button>
-                    </div>
-                </form>
-            </div>
-
-            <div class="description">
-                <h3>الوصف</h3>
-                <div>
-                   {!! $product->description !!}
                 </div>
             </div>
         </div>
