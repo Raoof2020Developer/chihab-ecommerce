@@ -14,20 +14,14 @@ class OrdersController extends Controller
         $orders = Order::all();
         $wilayasJson = file_get_contents('storage/wilayas.json'); 
         $wilayas = json_decode($wilayasJson);
-        
-        $baladiyasJson = file_get_contents('storage/baladiyas.json'); 
-        $baladiyas = json_decode($baladiyasJson);
 
-        return view('orders.index',  compact('orders', 'wilayas', 'baladiyas'));
+        return view('orders.index',  compact('orders', 'wilayas'));
     }
 
     public function message(Order $order) {
         $wilayasJson = file_get_contents('storage/wilayas.json'); 
         $wilayas = json_decode($wilayasJson);
-        
-        $baladiyasJson = file_get_contents('storage/baladiyas.json'); 
-        $baladiyas = json_decode($baladiyasJson);
-        return view('orders.message', compact('order', 'wilayas', 'baladiyas'));
+        return view('orders.message', compact('order', 'wilayas'));
     }
 
     public function store(Request $request, Order $order) {

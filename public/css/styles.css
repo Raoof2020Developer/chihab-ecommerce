@@ -355,26 +355,133 @@ input, select {
     color: rgb(49, 50, 54);
 }
 
+.description {
+    margin-right: 1.6rem;
+}
+
 .description h3 {
     margin-bottom: 1.5rem;
 }
 
 .description div {
-    max-width: 360px;
+    max-width: 300px;
     max-height: 180px;
     overflow: scroll;
     margin-bottom: 2.4rem;
+    padding: 1rem;
     width: 95vw;
 }
+.description div h3{
+    color: #54B435;
+}
 
+.description div ul {
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+}
+
+.description div img {
+    width: 180px;
+    border: 1px solid black;
+    padding: 1rem;
+}
+
+.description div ul li {
+    display: list-item;
+    list-style: square;
+    margin-right: 1rem;
+    font-size: .975rem;
+}
 @media screen and (min-width: 375px) {
     .container {
         max-width: 628px;
     }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 981px) {
+
+
     .container {
         max-width: 1024px;
+        display: flex;
+        justify-content: space-between;
     }
+    .top-header .container{
+        justify-content: center;
+        align-items: center;
+    }
+
+    .main-header .container {
+        align-items: center;
+    }
+
+    .nav-menu .nav-collapse {
+        display: none !important;
+    }
+
+    .nav-menu ul:first-child {
+        display: flex;
+        gap: 1.5rem;
+        list-style-type: none;
+        align-items: center;
+    }
+
+    .nav-menu ul:first-child a {
+        text-decoration: none;
+        transition: .2s;
+        color: #000000;
+    }
+
+    .nav-menu ul:first-child a:hover {
+        text-decoration: underline;
+        color: #3d3d3d;
+    }
+
+    .product {
+        margin-top: 2rem;
+    }
+
+    .product .container > div:last-child {
+        height: 500px;
+        overflow-y: scroll;
+    }
+
+    .order-card {
+        width: 500px;
+        margin-top: 3rem;
+    }
+
+    .description h3 {
+        text-align: center;
+        position: relative;
+        left: 1.8rem;
+        font-size: 1.5rem;
+    }
+    
+    .description div {
+        margin-bottom: 2.4rem;
+        max-width: 490px;
+        overflow: unset;
+        text-align: center;
+
+    }
+    .description div img {
+        width: 260px;
+    }
+    .footer, .copyright {
+        text-align: center;
+    }
+
+    #footer .container  {
+        display: flex;
+        justify-content: center;
+    }
+
+    .footer .container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: 2rem;
+    }
+   
 }

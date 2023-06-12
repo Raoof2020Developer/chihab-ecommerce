@@ -22,7 +22,21 @@
 
     <header class="main-header">
         <div class="container">
+            <h1 class="logo">CHIHAB SHOP</h1>
             <nav class="nav-menu">
+                <ul>
+                    <li>
+                        <a href="">من نحن؟</a>
+                    </li>
+
+                    <li>
+                        <a href="">اتصل بنا</a>
+                    </li>
+
+                    <li>
+                        <a href="">سياسة الخصوصية</a>
+                    </li>
+                </ul>
                 <button class="nav-collapse">
                     <i class="fa-solid fa-bars"></i>
                 </button>
@@ -153,7 +167,7 @@
         <button type="submit" form="orderForm">اطلب الآن</button>
     </div>
     
-    <div>
+    <div id="footer">
         <footer class="footer">
             <div class="container">
                 <p>لديك سؤال ما؟ اتصل بنا حالا.</p>

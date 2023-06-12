@@ -57,37 +57,36 @@ class ProductsController extends Controller
 
         if ($request->description != null) {
             $editorBlocks = json_decode($request->description)->blocks; 
-        $header = '';
-        $paragraph = '';
-        $image = '';
-        $list = '';
-        $description = '';
-        foreach($editorBlocks as $key => $block) {
-            if ($block->type == 'header') {
-                $header = $block->data->text;
-                $description .= '<h3>' . $header .  '</h3>';
-            }
-
-            if ($block->type == 'paragraph') {
-                $paragraph = $block->data->text;
-                $description .= '<p>' . $paragraph .  '</p>';
-            }
-
-            if ($block->type == 'list') {
-                $list = $block->data->items;
-                $listItems = '';
-                foreach($list as $listItem) {
-                    $listItems .= '<li>'. $listItem . '</li>';
+            $header = '';
+            $paragraph = '';
+            $image = '';
+            $list = '';
+            $description = '';
+            foreach($editorBlocks as $key => $block) {
+                if ($block->type == 'header') {
+                    $header = $block->data->text;
+                    $description .= '<h3>' . $header .  '</h3>';
                 }
-                $description .= '<ul style="list-style-type: circle;">' . $listItems . '</ul>';
-            }
 
-            if  ($block->type == 'image') {
-                $image = $block->data->file->url;
-                $description .= "<img src=\"". asset($image) ."\" alt='' width=\"200\" height=\"auto\" />";
-                
+                if ($block->type == 'paragraph') {
+                    $paragraph = $block->data->text;
+                    $description .= '<p>' . $paragraph .  '</p>';
+                }
+
+                if ($block->type == 'list') {
+                    $list = $block->data->items;
+                    $listItems = '';
+                    foreach($list as $listItem) {
+                        $listItems .= '<li>'. $listItem . '</li>';
+                    }
+                    $description .= '<ul>' . $listItems . '</ul>';
+                }
+
+                if  ($block->type == 'image') {
+                    $image = $block->data->file->url;
+                    $description .= "<img src=\"". asset($image) ."\" alt='' width=\"200\" height=\"auto\" />";   
+                }
             }
-        }
         }
         
         $newProduct = Product::create([
@@ -153,6 +152,40 @@ class ProductsController extends Controller
             Storage::disk('public')->delete($product->img_four_path);
             $product->img_four_path = $this->uploadImg($request->img_four_path);
         }
+
+        if ($request->description != null) {
+            $editorBlocks = json_decode($request->description)->blocks; 
+            $header = '';
+            $paragraph = '';
+            $image = '';
+            $list = '';
+            $description = '';
+                foreach($editorBlocks as $key => $block) {
+                    if ($block->type == 'header') {
+                        $header = $block->data->text;
+                        $description .= '<h3>' . $header .  '</h3>';
+                    }
+
+                    if ($block->type == 'paragraph') {
+                        $paragraph = $block->data->text;
+                        $description .= '<p>' . $paragraph .  '</p>';
+                    }
+
+                    if ($block->type == 'list') {
+                        $list = $block->data->items;
+                        $listItems = '';
+                        foreach($list as $listItem) {
+                            $listItems .= '<li>'. $listItem . '</li>';
+                        }
+                        $description .= '<ul>' . $listItems . '</ul>';
+                    }
+
+                    if  ($block->type == 'image') {
+                        $image = $block->data->file->url;
+                        $description .= "<img src=\"". asset($image) ."\" alt='' width=\"200\" height=\"auto\" />";   
+                    }
+                }
+        }
     
         $product->update([
             'name' => $request->name,
@@ -162,7 +195,7 @@ class ProductsController extends Controller
             'price_after_discount' => $request->price_after_discount,
             'quantity' => $request->quantity,
             'category' => $request->category,
-            'description' => '',
+            'description' => $request->description,
         ]);
 
         session()->flash('flash_message', 'تم تعديل المنتج بنجاح');
