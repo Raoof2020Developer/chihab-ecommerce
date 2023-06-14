@@ -41,6 +41,10 @@
         <h4>تفاصيل الطلب:</h4>
         <ul>
             <li>
+                <span>المنتج المطلوب:</span>
+                <span>000000{{$order->product->name}}</span>
+            </li>
+            <li>
                 <span>رقم الطلب:</span>
                 <span>000000{{$order->id}}</span>
             </li>

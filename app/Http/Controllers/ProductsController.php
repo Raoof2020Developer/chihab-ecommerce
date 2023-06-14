@@ -55,38 +55,15 @@ class ProductsController extends Controller
             'description' => 'nullable'
         ]);
 
-        if ($request->description != null) {
-            $editorBlocks = json_decode($request->description)->blocks; 
-            $header = '';
-            $paragraph = '';
-            $image = '';
-            $list = '';
-            $description = '';
-            foreach($editorBlocks as $key => $block) {
-                if ($block->type == 'header') {
-                    $header = $block->data->text;
-                    $description .= '<h3>' . $header .  '</h3>';
-                }
+        $description = '';
 
-                if ($block->type == 'paragraph') {
-                    $paragraph = $block->data->text;
-                    $description .= '<p>' . $paragraph .  '</p>';
-                }
+        if ($request->has('description_text')) {
+            $description .= '<p>' . $request->description_text . '</p>';
+        }
 
-                if ($block->type == 'list') {
-                    $list = $block->data->items;
-                    $listItems = '';
-                    foreach($list as $listItem) {
-                        $listItems .= '<li>'. $listItem . '</li>';
-                    }
-                    $description .= '<ul>' . $listItems . '</ul>';
-                }
-
-                if  ($block->type == 'image') {
-                    $image = $block->data->file->url;
-                    $description .= "<img src=\"". asset($image) ."\" alt='' width=\"200\" height=\"auto\" />";   
-                }
-            }
+        if ($request->has('description_image')) {
+            $descriptionImage = $this->uploadImg($request->description_image);
+            $description .= "<img src=\"" . asset('storage/'. $descriptionImage) . "\" alt=\"\" />";
         }
         
         $newProduct = Product::create([
@@ -153,38 +130,15 @@ class ProductsController extends Controller
             $product->img_four_path = $this->uploadImg($request->img_four_path);
         }
 
-        if ($request->description != null) {
-            $editorBlocks = json_decode($request->description)->blocks; 
-            $header = '';
-            $paragraph = '';
-            $image = '';
-            $list = '';
-            $description = '';
-                foreach($editorBlocks as $key => $block) {
-                    if ($block->type == 'header') {
-                        $header = $block->data->text;
-                        $description .= '<h3>' . $header .  '</h3>';
-                    }
+        $description = '';
 
-                    if ($block->type == 'paragraph') {
-                        $paragraph = $block->data->text;
-                        $description .= '<p>' . $paragraph .  '</p>';
-                    }
+        if ($request->has('description_text')) {
+            $description .= '<p>' . $request->description_text . '</p>';
+        }
 
-                    if ($block->type == 'list') {
-                        $list = $block->data->items;
-                        $listItems = '';
-                        foreach($list as $listItem) {
-                            $listItems .= '<li>'. $listItem . '</li>';
-                        }
-                        $description .= '<ul>' . $listItems . '</ul>';
-                    }
-
-                    if  ($block->type == 'image') {
-                        $image = $block->data->file->url;
-                        $description .= "<img src=\"". asset($image) ."\" alt='' width=\"200\" height=\"auto\" />";   
-                    }
-                }
+        if ($request->has('description_image')) {
+            $descriptionImage = $this->uploadImg($request->description_image);
+            $description .= "<img src=\"" . asset('storage/'. $descriptionImage) . "\" alt=\"\" />";
         }
     
         $product->update([
@@ -195,7 +149,7 @@ class ProductsController extends Controller
             'price_after_discount' => $request->price_after_discount,
             'quantity' => $request->quantity,
             'category' => $request->category,
-            'description' => $request->description,
+            'description' => $description,
         ]);
 
         session()->flash('flash_message', 'تم تعديل المنتج بنجاح');
@@ -219,5 +173,4 @@ class ProductsController extends Controller
         session()->flash('flash_message', 'تم حذف المنتج بنجاح');
         return redirect(route('admin.products.index'));
     }
-
 }

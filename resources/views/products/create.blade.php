@@ -157,23 +157,23 @@
                     <div class="form-outline  mt-3">
                         <div class="flex flex-col">
                             <label class="form-label" for="description">وصف المنتج</label>
-                            <input type="hidden" name="description" id="description">
                             
-                            <div id="editor" class="border my-4"></div>
-                            <a href="{{route('description.add')}}" class="btn btn-primary py-2" id="save-description" role="button" type="button" data-image_upload="{{route('image.upload')}}">حفظ الوصف</a>
-                                    @error('description')
-                                    <span class="text-danger">{{$message}}</span>
-                                    @enderror
+                            <input type="text" name="description_text" id="description-text" class="form-control mb-2" placeholder="نص الوصف">
+                            <label for="description-image">صورة الوصف</label>
+                            <input type="file" name="description_image" id="description-image" class="form-control mb-2" onchange="readCoverImg(this, '#description-thumb-img')">
+                            
+                            @error('description')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
+                        <img src="" alt="" id="description-thumb-img">
                     </div>  
                     <div>
                         <hr class="py-2">
                     </div>
                     <div class="d-flex flex-row-reverse mt-3">
-                        <button type="submit" class="btn btn-primary text-dark">أضف المنتج</button>
+                        <button type="submit" class="btn btn-primary">أضف المنتج</button>
                     </div>
-
-
             </form>
             </div>
         </div>
@@ -202,6 +202,7 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
+
 </script>
    
 

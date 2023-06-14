@@ -24,9 +24,6 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::get('/admin', function() {
     return view('admin.index');
 })->middleware('auth');
@@ -35,8 +32,7 @@ Route::get('/admin/products', [ProductsController::class, 'index'])->name('admin
 Route::get('/products/{product}', [ProductsController::class, 'show'])->name('products.show');
 Route::get('/admin/products/create', [ProductsController::class, 'create'])->name('admin.products.create');
 
-Route::post('/admin/products/description', [DescriptionController::class, 'add'])->name('description.add');
-Route::any('/image-upload', [DescriptionController::class, 'imageUpload'])->name('image.upload');
+Route::any('/image-upload', [ProductsController::class, 'imageUpload'])->name('image.upload');
 
 Route::post('/admin/products/', [ProductsController::class, 'store'])->name('admin.products.store');
 Route::delete('/admin/products/{product}', [ProductsController::class, 'destroy'])->name('admin.products.destroy');

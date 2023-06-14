@@ -152,13 +152,13 @@
                     <!-- Message input -->
                     <div class="form-outline mb-2">
                         <label class="form-label" for="description">وصف المنتج</label>
-                        <textarea class="form-control" id="description" name="description" rows="4">
-                            {{$product->description}}
-                        </textarea>
+                        <input type="text" name="description_text" id="description-text" class="form-control mb-2" placeholder="نص الوصف">
+                            <label for="description-image">صورة الوصف</label>
+                            <input type="file" name="description_image" id="description-image" class="form-control mb-2" onchange="readCoverImg(this, '#description-thumb-img')">
 
-                        @error('description')
+                            @error('description')
                                 <span class="text-danger">{{$message}}</span>
-                                @enderror
+                            @enderror
 
                     </div>
                     
